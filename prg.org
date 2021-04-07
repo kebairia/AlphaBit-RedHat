@@ -1,0 +1,26 @@
+* Season I
+:PROPERTIES:
+#+Session: 10
+:Effort:   10 weeks
+:END:
+- The concept of commands in linux [command + options + arguments]
+- Filesystem hierarchy
+- Dealing with files (creating/modifying/deleting) + Text editors + vim & Emacs
+- Getting Help [man, doc]
+- Managing Users + Groups
+- Permissions
+- Processes
+- Daemons + Systemd
+- Managing & analyzing logs
+- Managing Linux Networking [nmcli ..etc]
+- Archiving & Copying files between systems [ rsync, scp, tar]
+- Accessing Linux filesystem [mount, umount]
+- Installing and Updating Software Packages
+- Virtualization
+* Season II
+- Grep
+- Vim
+- ps priorities
+- ACLs
+- SELinux
+- cron jobs
