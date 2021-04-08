@@ -1,4 +1,3 @@
-#+GITHUB REPO: github.com/kebairia/AlphaBit-RedHat.git
 * Introduction
 
 * Season I
