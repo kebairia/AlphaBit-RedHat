@@ -1,8 +1,8 @@
 # ------------------------------------------------------------------------------
 #+TITLE:     AlphaBit-RedHat
-#+SUBTITLE:  Zakaria Kebairia - April 2021
-#+AUTHOR:    Zakaria Kebairia
-#+EMAIL:     z.kebairia@esi-sba.dz, 4.kebairia@gmail.com
+#+SUBTITLE:  Nicolas P. Rougier - September 2020
+#+AUTHOR:    Nicolas P. Rougier
+#+EMAIL:     Nicolas.Rougier@inria.fr
 #+LANGUAGE:  en
 #+STARTUP:   content showstars indent inlineimages hideblocks
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="GTD.css" />
