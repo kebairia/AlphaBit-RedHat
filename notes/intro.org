@@ -26,3 +26,8 @@
 - ACLs
 - SELinux
 - cron jobs
+* DONE to know
+CLOSED: [2021-04-15 Thu 15:41]
+- license
+- gnu and linux
+- distro
