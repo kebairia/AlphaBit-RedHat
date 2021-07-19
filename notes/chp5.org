@@ -9,6 +9,8 @@
 #+OPTIONS:   toc:2 html-scripts:nil num:nil html-postamble:nil html-style:nil ^:nil
 #+PROPERTY:  header-args :results none
 # ------------------------------------------------------------------------------
+#+HTML: <div class="back"><a href="#table-of-contents">⌘ Back to top</a></div>
+
 * Managing Local Group Accounts
 - A group must exist before a user can be added to that group.
 ** ~groupadd~ creates groups
@@ -26,6 +28,7 @@
   sudo groupmod --help
 #+end_src
 
+#+HTML: <details><summary><b>groupmod options</b></summary>
 #+RESULTS:
 #+begin_example
 Usage: groupmod [options] GROUP
@@ -58,6 +61,7 @@ Options:
     sudo usermod --help
   #+end_src
 
+#+HTML: <details><summary><b>usermod options</b></summary>
   #+RESULTS:
   #+begin_example
   Usage: usermod [options] LOGIN
@@ -105,4 +109,6 @@ Options:
     sudo groupadd sup_group2
     sudo usermod -aG sup_group,sup_group2 zakaria
   #+end_src
+
+#+HTML: <div class="back"><a href="#table-of-contents">⌘ Back to top</a></div>
 * Managing User Passowrds
