@@ -41,3 +41,68 @@ Options:
   -P, --prefix PREFIX_DIR       prefix directory where are located the /etc/* files
 
 #+end_example
+- let's change ateam's GID
+  #+begin_src sh :results none
+    sudo groupmod -g 6000 ateam
+  #+end_src
+** ~groupdel~ deletes a group
+- the ~groupdel~ command will rmeove a group.
+  #+begin_src sh :results none
+    sudo groupdel javaapp
+  #+end_src
+- A group may not be removed if it is the primary grup0u of any existing user.
+  As with ~userdel~, check all file systems to ensure that no files remain owned by the group.
+** ~usermod~ alters group membership
+- first let's check the options that we have with this command
+  #+begin_src sh :results output :exports both
+    sudo usermod --help
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  Usage: usermod [options] LOGIN
+
+  Options:
+    -b, --badnames                allow bad names
+    -c, --comment COMMENT         new value of the GECOS field
+    -d, --home HOME_DIR           new home directory for the user account
+    -e, --expiredate EXPIRE_DATE  set account expiration date to EXPIRE_DATE
+    -f, --inactive INACTIVE       set password inactive after expiration
+                                  to INACTIVE
+    -g, --gid GROUP               force use GROUP as new primary group
+    -G, --groups GROUPS           new list of supplementary GROUPS
+    -a, --append                  append the user to the supplemental GROUPS
+                                  mentioned by the -G option without removing
+                                  the user from other groups
+    -h, --help                    display this help message and exit
+    -l, --login NEW_LOGIN         new value of the login name
+    -L, --lock                    lock the user account
+    -m, --move-home               move contents of the home directory to the
+                                  new location (use only with -d)
+    -o, --non-unique              allow using duplicate (non-unique) UID
+    -p, --password PASSWORD       use encrypted password for the new password
+    -R, --root CHROOT_DIR         directory to chroot into
+    -P, --prefix PREFIX_DIR       prefix directory where are located the /etc/* files
+    -s, --shell SHELL             new login shell for the user account
+    -u, --uid UID                 new UID for the user account
+    -U, --unlock                  unlock the user account
+    -v, --add-subuids FIRST-LAST  add range of subordinate uids
+    -V, --del-subuids FIRST-LAST  remove range of subordinate uids
+    -w, --add-subgids FIRST-LAST  add range of subordinate gids
+    -W, --del-subgids FIRST-LAST  remove range of subordinate gids
+
+  #+end_example
+- it seems that the ~-g~ option let us the primary group of a particular user.
+  #+begin_src sh :results none
+    # sudo usermod -g <newgroup> <username>
+    sudo usermod -g student student
+  #+end_src
+- and we can add supplementary groups with the ~-aG~ options, where ~-G~ helps us adding the supplementary groups
+  and the ~-a~ append these groups so that we won't override the old ones.
+
+  #+begin_src sh :results none
+    sudo groupadd sup_group
+    sudo groupadd sup_group2
+    sudo usermod -aG sup_group,sup_group2 zakaria
+  #+end_src
+* Managing User Passowrds
