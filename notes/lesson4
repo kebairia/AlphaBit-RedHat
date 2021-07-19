@@ -1,2 +1,0 @@
-When copying multiple files with one command, the last argument must be a directory
-cp <file/dir> <file/dir> ... <dir> 
