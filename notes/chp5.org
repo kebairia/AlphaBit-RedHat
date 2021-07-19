@@ -1,0 +1,43 @@
+# ------------------------------------------------------------------------------
+#+TITLE:     Chapter 5: Managing Local Linux Users and Groups
+#+SUBTITLE:  Kebairia Zakaria - January 2021
+#+AUTHOR:    Kebairia Zakaria
+#+EMAIL:     z.kebairia@esi-sba.dz
+#+LANGUAGE:  en
+#+STARTUP:   content showstars indent inlineimages hideblocks
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="/home/zakaria/org/conf/rouger.css" />
+#+OPTIONS:   toc:2 html-scripts:nil num:nil html-postamble:nil html-style:nil ^:nil
+#+PROPERTY:  header-args :results none
+# ------------------------------------------------------------------------------
+* Managing Local Group Accounts
+- A group must exist before a user can be added to that group.
+** ~groupadd~ creates groups
+- ~groupadd <groupname>~ without options uses the next available *GID* from the range specified in the ~/etc/login.defs~ file.
+- the ~-g GID~ option is used to specify a specific GID.
+  #+begin_src sh :results none
+    sudo groupadd -g 5000 ateam
+  #+end_src
+- the ~-r~ option will create a system group using a GID from the range of valid system GID numbers listed in the ~/etc/login.defs~ file.
+  #+begin_src sh :results none
+    sudo groupadd -r appusers
+  #+end_src
+** ~groupmod~ modifies existing groups
+#+begin_src sh :results output :exports both
+  sudo groupmod --help
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Usage: groupmod [options] GROUP
+
+Options:
+  -g, --gid GID                 change the group ID to GID
+  -h, --help                    display this help message and exit
+  -n, --new-name NEW_GROUP      change the name to NEW_GROUP
+  -o, --non-unique              allow to use a duplicate (non-unique) GID
+  -p, --password PASSWORD       change the password to this (encrypted)
+                                PASSWORD
+  -R, --root CHROOT_DIR         directory to chroot into
+  -P, --prefix PREFIX_DIR       prefix directory where are located the /etc/* files
+
+#+end_example
