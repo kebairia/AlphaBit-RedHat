@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 #+TITLE:     Chapter 5: Managing Local Linux Users and Groups
-#+SUBTITLE:  Kebairia Zakaria - January 2021
+#+SUBTITLE:  Kebairia Zakaria - July 2021
 #+AUTHOR:    Kebairia Zakaria
 #+EMAIL:     z.kebairia@esi-sba.dz
 #+LANGUAGE:  en
@@ -11,6 +11,10 @@
 # ------------------------------------------------------------------------------
 #+HTML: <div class="back"><a href="#table-of-contents">⌘ Back to top</a></div>
 
+* Managing Local User Accounts
+** ~useradd~ create users
+** ~usermod~ modifies existing users
+** ~userdel~ deletes a user
 * Managing Local Group Accounts
 - A group must exist before a user can be added to that group.
 ** ~groupadd~ creates groups
@@ -96,6 +100,8 @@ Options:
     -W, --del-subgids FIRST-LAST  remove range of subordinate gids
 
   #+end_example
+#+HTML: </details>
+#+HTML: </details>
 - it seems that the ~-g~ option let us the primary group of a particular user.
   #+begin_src sh :results none
     # sudo usermod -g <newgroup> <username>
@@ -110,5 +116,25 @@ Options:
     sudo usermod -aG sup_group,sup_group2 zakaria
   #+end_src
 
+#+HTML: </details>
 #+HTML: <div class="back"><a href="#table-of-contents">⌘ Back to top</a></div>
 * Managing User Passowrds
+- in the past, encrypted passwords were stored in the ~/etc/passwd~ file.
+  this was thought to be secure until =dictionary attacks= on encrypted passwords became common.
+- after that, the encrypted passwords were moved to the more secure ~/etc/shadow~ file.
+- this new file also allowed password aging and expiration features to be implemented.
+- There are 3 pieces of information stored in a modern password hash:
+  ~$6$jD1.lA.ZiAmjKfxs$I0AmZF8p3kkoYJjP5tDRgMTTLa5dnbJ.U1djoSADCuuQjwcR.CDT9HCp8zuUgxhd.E.Al7UdmzlJytZQz9f0p/~
+  1. *6*: the hashing algorithm.
+
+     the number 1 indicates an *MD5* hash.
+
+     the number 6 appears when a *SHA-512* hash is used.
+
+  2. *jD1.lA.ZiAmjKfxs*: the /salt/ used to encrypt the hash. this is originally chosen at random.
+
+     the salt and the unencrypted password are combined and encrypted to create the encrypted password hash.
+
+     means: if two users used the same password, different *hashes* will be generated.
+
+  3. *I0AmZF8p3kkoYJ....8zuUgxhd.E.Al7UdmzlJytZQz9f0p/*: the encrypted file.
