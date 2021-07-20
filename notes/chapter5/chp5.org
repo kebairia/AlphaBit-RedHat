@@ -7,7 +7,7 @@
 #+STARTUP:   content showstars indent inlineimages hideblocks
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="/home/zakaria/org/conf/rouger.css" />
 #+OPTIONS:   toc:2 html-scripts:nil num:nil html-postamble:nil html-style:nil ^:nil
-#+PROPERTY:  header-args :results none
+#+PROPERTY:  header-args :results none :dir /ssh:admin@192.168.121.210:
 # ------------------------------------------------------------------------------
 #+HTML: <div class="back"><a href="#table-of-contents">⌘ Back to top</a></div>
 
@@ -20,11 +20,11 @@
 ** ~groupadd~ creates groups
 - ~groupadd <groupname>~ without options uses the next available *GID* from the range specified in the ~/etc/login.defs~ file.
 - the ~-g GID~ option is used to specify a specific GID.
-  #+begin_src sh :results none
+  #+begin_src sh 
     sudo groupadd -g 5000 ateam
   #+end_src
 - the ~-r~ option will create a system group using a GID from the range of valid system GID numbers listed in the ~/etc/login.defs~ file.
-  #+begin_src sh :results none
+  #+begin_src sh
     sudo groupadd -r appusers
   #+end_src
 ** ~groupmod~ modifies existing groups
