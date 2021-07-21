@@ -7,15 +7,43 @@
 #+STARTUP:   content showstars indent inlineimages hideblocks
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="/home/zakaria/org/conf/rouger.css" />
 #+OPTIONS:   toc:2 html-scripts:nil num:nil html-postamble:nil html-style:nil ^:nil
-#+PROPERTY:  header-args :results none :dir /ssh:admin@192.168.121.210:
+#+PROPERTY:  header-args :results none :dir /ssh:admin@alpha:
 # ------------------------------------------------------------------------------
 #+HTML: <div class="back"><a href="#table-of-contents">⌘ Back to top</a></div>
+* Account Mechanics
+- A user is really nothing than a number, a 32-bits integer known as the user ID or *UID*, and everyting uses the users concept deals with this particual number. 
+- On RedHat and its variants, the password algorithm can still be set in ~/etc/login.defs~ or through the 
+  =authconfig= command, as shown here:
+  #+begin_src sh :results output
+    # to use the authconfig utility, you must install the authselect-compat
+    # sudo yum install authselect-compat
+    sudo authconfig --passalgo=sha512 --update
+  #+end_src
+* THE /ETC/PASSWD FILE
+- ~/etc/passwd~ is just a list of users that act like a database of users information for the system
+- the system uses this file to get extra information about a particular users, because as we know, the system only know and deals
+with the *UID* which is just a 32-bit number, so it needs this file to map this *UID* and get these extra information.
+but what is these information that we can get from the ~/etc/passwd~ file?.
+- Each line in the file represents one user and contains 7 fields separated by colons(the delimiter):
+  - Login name
+  - encrypted password placeholder
+  - UID (user ID) number
+  - Default GID (the GID of the primary group) number
+  - Optional "GECOS" information: full name, office, phone number, department...etc
+  - Home directory
+  - Login shell
+- for example, let's take a look on our system's ~/etc/passwd~ file.
+  - using the *head* command, we can see the first 10 lines of the file.
+    #+begin_src sh :results output
+      head /etc/passwd
+    #+end_src
 
-* Managing Local User Accounts
+
+* COMMENT Managing Local User Accounts
 ** ~useradd~ create users
 ** ~usermod~ modifies existing users
 ** ~userdel~ deletes a user
-* Managing Local Group Accounts
+* COMMENT Managing Local Group Accounts
 - A group must exist before a user can be added to that group.
 ** ~groupadd~ creates groups
 - ~groupadd <groupname>~ without options uses the next available *GID* from the range specified in the ~/etc/login.defs~ file.
@@ -54,8 +82,8 @@ Options:
   #+end_src
 ** ~groupdel~ deletes a group
 - the ~groupdel~ command will rmeove a group.
-  #+begin_src sh :results none
-    sudo groupdel javaapp
+  #+begin_src sh :results output
+    sudo groupdel javaapp 2>&1
   #+end_src
 - A group may not be removed if it is the primary grup0u of any existing user.
   As with ~userdel~, check all file systems to ensure that no files remain owned by the group.
@@ -118,7 +146,7 @@ Options:
 
 #+HTML: </details>
 #+HTML: <div class="back"><a href="#table-of-contents">⌘ Back to top</a></div>
-* Managing User Passowrds
+* COMMENT Managing User Passowrds
 - in the past, encrypted passwords were stored in the ~/etc/passwd~ file.
   this was thought to be secure until =dictionary attacks= on encrypted passwords became common.
 - after that, the encrypted passwords were moved to the more secure ~/etc/shadow~ file.
