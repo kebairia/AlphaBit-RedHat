@@ -138,13 +138,13 @@ actually, what ~-L~ does here is that it adds an exclamation mark (*!*) before t
 we will talk about the ~/etc/shadow~ later!.
 lets take a demo and see
 - first, lets give =yasser= a password; we can do that by the =passwd= command, and of course we need to use the *sudo* utility here.
-#+begin_src sh :results output
+#+begin_src sh :results output :exports both
     #sudo echo "linux" | passwd --stdin yasser
     sudo usermod -L yasser
     sudo grep yasser /etc/shadow
 #+end_src
 - and you can *unlock* the account simply by using the ~-U~ option
-  #+begin_src sh :results output
+  #+begin_src sh :results output :exports both
     sudo usermod -U yasser
     sudo grep yasser /etc/shadow
   #+end_src
@@ -155,15 +155,15 @@ lets take a demo and see
 #+RESULTS:
 : yasser:!$6$nhCWBYHQc2oQq/2j$iA0sQvRI2PBEDkGXH96AA/zFxre/sBqkYG0oOdPQhJMPsgMswl.PrINwpGm87A2BdeT0.f0Q2EjqTmfTT0eR51:18830:0:99999:7:::
 - we can also use the passwd utility to lock the password, and therefore the the account will be unavailable to to work with.
-  #+begin_src sh :results output
+  #+begin_src sh :results output :exports both
     sudo passwd -l yasser
   #+end_src
-
+  
   #+RESULTS:
   : Locking password for user yasser.
   : passwd: Success
 - and when we check the ~/etc/shadow~ file.
-  #+begin_src sh :results output
+  #+begin_src sh :results output :exports both
     sudo grep yasser /etc/shadow
   #+end_src
 
@@ -173,12 +173,12 @@ lets take a demo and see
 
 ** ~userdel~ deletes a user
 - let's create a testing account named demo
-#+begin_src sh :results output
+#+begin_src sh :results output :exports both
   sudo useradd -s $(which bash) demo
 #+end_src
 
 - after that, we will make him own some files
-  #+begin_src sh :results output
+  #+begin_src sh :results output :exports both
     whoami
     mkdir -v demofiles
     touch demofiles/file{1..5}
@@ -195,7 +195,7 @@ lets take a demo and see
   : -rw-rw-r--. 1 admin admin 0 Jul 22 19:08 file5
 
 - we can see that these files are owned by the =admin= user, let's change their user and group ownership to the new user *demo*
-  #+begin_src sh :results output
+  #+begin_src sh :results output :exports both
     sudo chown demo:demo demofiles/*
     ls -l demofiles
   #+end_src
@@ -208,7 +208,7 @@ lets take a demo and see
   : -rw-rw-r--. 1 demo demo 0 Jul 22 19:08 file4
   : -rw-rw-r--. 1 demo demo 0 Jul 22 19:08 file5
 - after that we will delete the user =demo= so that these files will be, let say *orphants*, or files without user/group ownership
-  #+begin_src sh :results output
+  #+begin_src sh :results output :exports both
     sudo userdel demo
     ls -l demofiles
   #+end_src
