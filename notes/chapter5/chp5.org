@@ -7,7 +7,7 @@
 #+STARTUP:   content showstars indent inlineimages hideblocks
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="/home/zakaria/org/conf/rouger.css" />
 #+OPTIONS:   toc:2 html-scripts:nil num:nil html-postamble:nil html-style:nil ^:nil
-#+PROPERTY:  header-args :results none :dir /ssh:admin@alpha:
+#+PROPERTY:  header-args  :dir /ssh:admin@alpha: :exports both
 # ------------------------------------------------------------------------------
 #+HTML: <div class="back"><a href="#table-of-contents">⌘ Back to top</a></div>
 * Account Mechanics
@@ -39,11 +39,81 @@ but what is these information that we can get from the ~/etc/passwd~ file?.
     #+end_src
 
 
-* COMMENT Managing Local User Accounts
+* Managing Local User Accounts
 ** ~useradd~ create users
 ** ~usermod~ modifies existing users
 ** ~userdel~ deletes a user
-* COMMENT Managing Local Group Accounts
+- let's create a testing account named demo
+#+begin_src sh :results output
+  sudo useradd -s $(which bash) demo
+#+end_src
+
+- after that, we will make him own some files
+  #+begin_src sh :results output
+    whoami
+    mkdir -v demofiles
+    touch demofiles/file{1..5}
+    ls -l demofiles
+  #+end_src
+
+  #+RESULTS:
+  : admin
+  : total 0
+  : -rw-rw-r--. 1 admin admin 0 Jul 22 19:08 file1
+  : -rw-rw-r--. 1 admin admin 0 Jul 22 19:08 file2
+  : -rw-rw-r--. 1 admin admin 0 Jul 22 19:08 file3
+  : -rw-rw-r--. 1 admin admin 0 Jul 22 19:08 file4
+  : -rw-rw-r--. 1 admin admin 0 Jul 22 19:08 file5
+
+- we can see that these files are owned by the =admin= user, let's change their user and group ownership to the new user *demo*
+  #+begin_src sh :results output
+    sudo chown demo:demo demofiles/*
+    ls -l demofiles
+  #+end_src
+
+  #+RESULTS:
+  : total 0
+  : -rw-rw-r--. 1 demo demo 0 Jul 22 19:08 file1
+  : -rw-rw-r--. 1 demo demo 0 Jul 22 19:08 file2
+  : -rw-rw-r--. 1 demo demo 0 Jul 22 19:08 file3
+  : -rw-rw-r--. 1 demo demo 0 Jul 22 19:08 file4
+  : -rw-rw-r--. 1 demo demo 0 Jul 22 19:08 file5
+- after that we will delete the user =demo= so that these files will be, let say *orphants*, or files without user/group ownership
+  #+begin_src sh :results output
+    sudo userdel demo
+    ls -l demofiles
+  #+end_src
+
+  #+RESULTS:
+  : total 0
+  : -rw-rw-r--. 1 1001 1001 0 Jul 22 19:08 file1
+  : -rw-rw-r--. 1 1001 1001 0 Jul 22 19:08 file2
+  : -rw-rw-r--. 1 1001 1001 0 Jul 22 19:08 file3
+  : -rw-rw-r--. 1 1001 1001 0 Jul 22 19:08 file4
+  : -rw-rw-r--. 1 1001 1001 0 Jul 22 19:08 file5
+- there are multiple steps to fix this problem.
+  1. we have to use the ~-r~ option with ~userdel~ command, as we can see this option helps us to remove files in the user's home directory, the home directory itself and the user mail spool.
+  2. search for other files owned by this user, uid or search for any files that doesn't have user/group owner.
+     you can mouve them to another location, delete them, tar them or change their ownership to another user and group
+     #+begin_src sh :results output 
+       # change their user/group ownership into admin:admin
+       sudo find / -nouser -nogroup 2> /dev/null -exec chown -v admin:admin {} \;
+     #+end_src
+
+     #+RESULTS:
+     #+begin_example
+     changed ownership of '/home/admin/demofiles/file1' from 1001:1001 to admin:admin
+     changed ownership of '/home/admin/demofiles/file2' from 1001:1001 to admin:admin
+     changed ownership of '/home/admin/demofiles/file3' from 1001:1001 to admin:admin
+     changed ownership of '/home/admin/demofiles/file4' from 1001:1001 to admin:admin
+     changed ownership of '/home/admin/demofiles/file5' from 1001:1001 to admin:admin
+     changed ownership of '/home/demo' from 1001:1001 to admin:admin
+     changed ownership of '/home/demo/.bash_logout' from 1001:1001 to admin:admin
+     changed ownership of '/home/demo/.bash_profile' from 1001:1001 to admin:admin
+     changed ownership of '/home/demo/.bashrc' from 1001:1001 to admin:admin
+     #+end_example
+
+* Managing Local Group Accounts
 - A group must exist before a user can be added to that group.
 ** ~groupadd~ creates groups
 - ~groupadd <groupname>~ without options uses the next available *GID* from the range specified in the ~/etc/login.defs~ file.
@@ -146,7 +216,7 @@ Options:
 
 #+HTML: </details>
 #+HTML: <div class="back"><a href="#table-of-contents">⌘ Back to top</a></div>
-* COMMENT Managing User Passowrds
+* Managing User Passowrds
 - in the past, encrypted passwords were stored in the ~/etc/passwd~ file.
   this was thought to be secure until =dictionary attacks= on encrypted passwords became common.
 - after that, the encrypted passwords were moved to the more secure ~/etc/shadow~ file.
