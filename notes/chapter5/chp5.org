@@ -9,7 +9,6 @@
 #+OPTIONS:   toc:2 html-scripts:nil num:nil html-postamble:nil html-style:nil ^:nil
 #+PROPERTY:  header-args  :dir /ssh:admin@alpha: :exports both
 # ------------------------------------------------------------------------------
-#+HTML: <div class="back"><a href="#table-of-contents">⌘ Back to top</a></div>
 * Account Mechanics
 - A user is really nothing than a number, a 32-bits integer known as the user ID or *UID*, and everyting uses the users concept deals with this particual number. 
 - On RedHat and its variants, the password algorithm can still be set in ~/etc/login.defs~ or through the 
@@ -38,6 +37,19 @@ but what is these information that we can get from the ~/etc/passwd~ file?.
       head /etc/passwd
     #+end_src
 
+    #+RESULTS:
+    #+begin_example
+    root:x:0:0:root:/root:/bin/bash
+    bin:x:1:1:bin:/bin:/sbin/nologin
+    daemon:x:2:2:daemon:/sbin:/sbin/nologin
+    adm:x:3:4:adm:/var/adm:/sbin/nologin
+    lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+    sync:x:5:0:sync:/sbin:/bin/sync
+    shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+    halt:x:7:0:halt:/sbin:/sbin/halt
+    mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+    operator:x:11:0:operator:/root:/sbin/nologin
+    #+end_example
 
 * Managing Local User Accounts
 ** ~useradd~ create users
@@ -119,6 +131,45 @@ but what is these information that we can get from the ~/etc/passwd~ file?.
 
   #+RESULTS:
   : yasser:x:2500:2000::/home/yasser:/usr/bin/sh
+- *PS*: the ~-d~ option above allows you to change the location of the home directory, but you need the ~-m~ option to move the content of the old home directory location to the new one.
+*** Locking and Unlocking a user account 
+- the ~-L~ and the ~-U~ option helps us to *lock* and *unlock* a user account, but what do we mean by that
+actually, what ~-L~ does here is that it adds an exclamation mark (*!*) before the encrypted password in the ~/etc/shadow~ file, which make it an invalid password, hence you can't login to the account
+we will talk about the ~/etc/shadow~ later!.
+lets take a demo and see
+- first, lets give =yasser= a password; we can do that by the =passwd= command, and of course we need to use the *sudo* utility here.
+#+begin_src sh :results output
+    #sudo echo "linux" | passwd --stdin yasser
+    sudo usermod -L yasser
+    sudo grep yasser /etc/shadow
+#+end_src
+- and you can *unlock* the account simply by using the ~-U~ option
+  #+begin_src sh :results output
+    sudo usermod -U yasser
+    sudo grep yasser /etc/shadow
+  #+end_src
+
+  #+RESULTS:
+  : yasser:$6$nhCWBYHQc2oQq/2j$iA0sQvRI2PBEDkGXH96AA/zFxre/sBqkYG0oOdPQhJMPsgMswl.PrINwpGm87A2BdeT0.f0Q2EjqTmfTT0eR51:18830:0:99999:7:::
+
+#+RESULTS:
+: yasser:!$6$nhCWBYHQc2oQq/2j$iA0sQvRI2PBEDkGXH96AA/zFxre/sBqkYG0oOdPQhJMPsgMswl.PrINwpGm87A2BdeT0.f0Q2EjqTmfTT0eR51:18830:0:99999:7:::
+- we can also use the passwd utility to lock the password, and therefore the the account will be unavailable to to work with.
+  #+begin_src sh :results output
+    sudo passwd -l yasser
+  #+end_src
+
+  #+RESULTS:
+  : Locking password for user yasser.
+  : passwd: Success
+- and when we check the ~/etc/shadow~ file.
+  #+begin_src sh :results output
+    sudo grep yasser /etc/shadow
+  #+end_src
+
+  #+RESULTS:
+  : yasser:!!$6$nhCWBYHQc2oQq/2j$iA0sQvRI2PBEDkGXH96AA/zFxre/sBqkYG0oOdPQhJMPsgMswl.PrINwpGm87A2BdeT0.f0Q2EjqTmfTT0eR51:18830:0:99999:7:::
+- here we can see that when we use the =passwd= to lock an account, what it does is that it adds two exclamation (*!!*) marks infront of the password in the ~/etc/shadow~ file.
 
 ** ~userdel~ deletes a user
 - let's create a testing account named demo
