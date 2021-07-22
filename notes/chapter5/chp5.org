@@ -41,7 +41,85 @@ but what is these information that we can get from the ~/etc/passwd~ file?.
 
 * Managing Local User Accounts
 ** ~useradd~ create users
+- actualy, the =useradd= command is a fairly simple command, as we see earlier that in linux, there is the concept of *do one thing and do it well*.
+  so here, the command =useradd= only helps us to create a new user, and with the help of its options we can specify specific inoformation along the creation of this user, lets see!:
+  #+begin_src sh :results output :exports both
+    sudo useradd --help
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  Usage: useradd [options] LOGIN
+         useradd -D
+         useradd -D [options]
+
+  Options:
+    -b, --base-dir BASE_DIR       base directory for the home directory of the
+                                  new account
+    -c, --comment COMMENT         GECOS field of the new account
+    -d, --home-dir HOME_DIR       home directory of the new account
+    -D, --defaults                print or change default useradd configuration
+    -e, --expiredate EXPIRE_DATE  expiration date of the new account
+    -f, --inactive INACTIVE       password inactivity period of the new account
+    -g, --gid GROUP               name or ID of the primary group of the new
+                                  account
+    -G, --groups GROUPS           list of supplementary groups of the new
+                                  account
+    -h, --help                    display this help message and exit
+    -k, --skel SKEL_DIR           use this alternative skeleton directory
+    -K, --key KEY=VALUE           override /etc/login.defs defaults
+    -l, --no-log-init             do not add the user to the lastlog and
+                                  faillog databases
+    -m, --create-home             create the user's home directory
+    -M, --no-create-home          do not create the user's home directory
+    -N, --no-user-group           do not create a group with the same name as
+                                  the user
+    -o, --non-unique              allow to create users with duplicate
+                                  (non-unique) UID
+    -p, --password PASSWORD       encrypted password of the new account
+    -r, --system                  create a system account
+    -R, --root CHROOT_DIR         directory to chroot into
+    -P, --prefix PREFIX_DIR       prefix directory where are located the /etc/* files
+    -s, --shell SHELL             login shell of the new account
+    -u, --uid UID                 user ID of the new account
+    -U, --user-group              create a group with the same name as the user
+    -Z, --selinux-user SEUSER     use a specific SEUSER for the SELinux user mapping
+
+  #+end_example
+- to better understand these option, we will take the following scenario:
+  let's create a user name *ahmed* with these specific information:
+  | Name  | ahmed |
+  |-------+-------|
+  | Shell | bash  |
+  |-------+-------|
+  | UID   | 2000  |
+  #+begin_src sh :results output :exports both
+    sudo useradd -s $(which bash) -u 2000 ahmed
+    grep "ahmed" /etc/passwd
+  #+end_src
+
+  #+RESULTS:
+  : ahmed:x:2000:2000::/home/ahmed:/usr/bin/bash
+- as we can see, the opiration is fairly easy, and it doesn't require a lot of skill to do that.
+
 ** ~usermod~ modifies existing users
+- Now that we have a user named "ahmed", lets suppose that we need to change some information about it
+  | Name  | yasser       |
+  |-------+--------------|
+  | Shell | sh           |
+  |-------+--------------|
+  | UID   | 2500         |
+  |-------+--------------|
+  | Home  | /home/yasser |
+  |-------+--------------|
+  #+begin_src sh :results output :exports both
+    sudo usermod -l yasser -s $(which sh) -u 2500 -md /home/yasser ahmed
+    grep yasser /etc/passwd
+  #+end_src
+
+  #+RESULTS:
+  : yasser:x:2500:2000::/home/yasser:/usr/bin/sh
+
 ** ~userdel~ deletes a user
 - let's create a testing account named demo
 #+begin_src sh :results output
@@ -95,7 +173,7 @@ but what is these information that we can get from the ~/etc/passwd~ file?.
   1. we have to use the ~-r~ option with ~userdel~ command, as we can see this option helps us to remove files in the user's home directory, the home directory itself and the user mail spool.
   2. search for other files owned by this user, uid or search for any files that doesn't have user/group owner.
      you can mouve them to another location, delete them, tar them or change their ownership to another user and group
-     #+begin_src sh :results output 
+     #+begin_src sh :results output :exports both
        # change their user/group ownership into admin:admin
        sudo find / -nouser -nogroup 2> /dev/null -exec chown -v admin:admin {} \;
      #+end_src
