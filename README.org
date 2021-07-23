@@ -13,34 +13,3 @@
 #+html: <a href="https://github.com/kebairia/AlphaBit-RedHat/pulls"><img alt="GitHub pull requests" src="https://img.shields.io/github/issues/kebairia/AlphaBit-RedHat?color=green&style=for-the-badge"></a>
 #+html: <a href="https://github.com/kebairia/AlphaBit-RedHat/network/members"><img alt="GitHub pull requests" src="https://img.shields.io/github/forks/kebairia/AlphaBit-RedHat?color=orange&style=for-the-badge"></a>
 #+html: <a href="https://github.com/kebairia/AlphaBit-RedHat/stargazers"><img alt="GitHub pull requests" src="https://img.shields.io/github/stars/kebairia/AlphaBit-RedHat?style=for-the-badge"></a>
-
-
-* Introduction
-** About this Repo
-this repo (including this README) is under construction!.
-** License
-
-This document has been written in org mode.
-
-released under a [[https://creativecommons.org/licenses/by/4.0/][CC-BY 4.0 international
-license]]. Feel free to re-use it if you like it.
-
-** Resources
-
-- [[https://github.com/kebairia/AlphaBit-RedHat][dumb link]] by Zakaria Kebairia (2021)
-
-  #+BEGIN_QUOTE
-  this is a quote
-  #+END_QUOTE
-
-* Conclusion
-** Going further
-* Local Variables                                                    :noexport:
-# Local Variables:
-# fill-column: 75
-# org-html-link-org-files-as-html: nil
-# eval: (face-remap-add-relative 'org-level-2 '(face-strong face-salient))
-# eval: (face-remap-add-relative 'org-level-3 '(face-salient default))
-# eval: (face-remap-add-relative 'org-level-4 '(default))
-# End:
-
