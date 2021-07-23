@@ -8,10 +8,10 @@
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="GTD.css" />
 #+OPTIONS:   toc:2 html-scripts:nil num:nil html-postamble:nil html-style:nil ^:nil
 # ------------------------------------------------------------------------------
-#+html: <a href="https://github.com/kebairia/AlphaBit-RedHat/issues"> <img alt="GitHub closed pull requests" src="https://img.shields.io/github/issues-pr-closed/kebairia/AlphaBit-RedHat?color=yellow&style=for-the-badge"> </a>
 #+html: <a href="https://github.com/kebairia/AlphaBit-RedHat/graphs/contributors"> <img alt="GitHub contributors" src="https://img.shields.io/github/contributors/kebairia/AlphaBit-RedHat?style=for-the-badge"> </a>
-#+html: <a href="https://github.com/kebairia/AlphaBit-RedHat/pulls"><img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/kebairia/AlphaBit-RedHat?style=for-the-badge"></a>
-#+html: <a href="https://github.com/kebairia/AlphaBit-RedHat/pulls"><img alt="GitHub pull requests" src="https://img.shields.io/github/stars/kebairia/AlphaBit-RedHat?style=for-the-badge"></a>
+#+html: <a href="https://github.com/kebairia/AlphaBit-RedHat/issues"> <img alt="GitHub closed pull requests" src="https://img.shields.io/github/issues-pr-closed/kebairia/AlphaBit-RedHat?color=yellow&style=for-the-badge"> </a>
+#+html: <a href="https://github.com/kebairia/AlphaBit-RedHat/pulls"><img alt="GitHub pull requests" src="https://img.shields.io/github/issues/kebairia/AlphaBit-RedHat?color=green&style=for-the-badge"></a>
+#+html: <a href="https://github.com/kebairia/AlphaBit-RedHat/stargazers"><img alt="GitHub pull requests" src="https://img.shields.io/github/stars/kebairia/AlphaBit-RedHat?style=for-the-badge"></a>
 
 * Introduction
 ** About this Repo
