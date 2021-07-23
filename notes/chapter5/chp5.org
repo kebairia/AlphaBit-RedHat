@@ -143,6 +143,10 @@ lets take a demo and see
     sudo usermod -L yasser
     sudo grep yasser /etc/shadow
 #+end_src
+
+#+RESULTS:
+: yasser:!$6$nhCWBYHQc2oQq/2j$iA0sQvRI2PBEDkGXH96AA/zFxre/sBqkYG0oOdPQhJMPsgMswl.PrINwpGm87A2BdeT0.f0Q2EjqTmfTT0eR51:18830:0:99999:7:::
+
 - and you can *unlock* the account simply by using the ~-U~ option
   #+begin_src sh :results output :exports both
     sudo usermod -U yasser
@@ -170,6 +174,21 @@ lets take a demo and see
   #+RESULTS:
   : yasser:!!$6$nhCWBYHQc2oQq/2j$iA0sQvRI2PBEDkGXH96AA/zFxre/sBqkYG0oOdPQhJMPsgMswl.PrINwpGm87A2BdeT0.f0Q2EjqTmfTT0eR51:18830:0:99999:7:::
 - here we can see that when we use the =passwd= to lock an account, what it does is that it adds two exclamation (*!!*) marks infront of the password in the ~/etc/shadow~ file.
+- and of course, to unlock the account using =passwd= use the ~-u~ option.
+  #+begin_src sh :results output
+    sudo passwd -u yasser
+  #+end_src
+
+  #+RESULTS:
+  : Unlocking password for user yasser.
+  : passwd: Success
+
+  #+begin_src sh :results output :exports both
+    sudo grep yasser /etc/shadow
+  #+end_src
+
+  #+RESULTS:
+  : yasser:$6$nhCWBYHQc2oQq/2j$iA0sQvRI2PBEDkGXH96AA/zFxre/sBqkYG0oOdPQhJMPsgMswl.PrINwpGm87A2BdeT0.f0Q2EjqTmfTT0eR51:18830:0:99999:7:::
 
 ** ~userdel~ deletes a user
 - let's create a testing account named demo
