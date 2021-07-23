@@ -53,8 +53,8 @@ but what is these information that we can get from the ~/etc/passwd~ file?.
 
 * Managing Local User Accounts
 ** ~useradd~ create users
-- actualy, the =useradd= command is a fairly simple command, as we see earlier that in linux, there is the concept of *do one thing and do it well*.
-  so here, the command =useradd= only helps us to create a new user, and with the help of its options we can specify specific inoformation along the creation of this user, lets see!:
+- actually, the =useradd= command is a fairly simple command, as we see earlier that in linux, there is the concept of *do one thing and do it well*.
+  so here, the command =useradd= only helps us to create a new user, and with the help of its options we can specify specific information along the creation of this user, lets see!:
   #+begin_src sh :results output :exports both
     sudo useradd --help
   #+end_src
@@ -112,7 +112,7 @@ but what is these information that we can get from the ~/etc/passwd~ file?.
 
   #+RESULTS:
   : ahmed:x:2000:2000::/home/ahmed:/usr/bin/bash
-- as we can see, the opiration is fairly easy, and it doesn't require a lot of skill to do that.
+- as we can see, the operation is fairly easy, and it doesn't require a lot of skill to do that.
 
 ** ~usermod~ modifies existing users
 - Now that we have a user named "ahmed", lets suppose that we need to change some information about it
@@ -158,7 +158,7 @@ lets take a demo and see
 
 #+RESULTS:
 : yasser:!$6$nhCWBYHQc2oQq/2j$iA0sQvRI2PBEDkGXH96AA/zFxre/sBqkYG0oOdPQhJMPsgMswl.PrINwpGm87A2BdeT0.f0Q2EjqTmfTT0eR51:18830:0:99999:7:::
-- we can also use the passwd utility to lock the password, and therefore the the account will be unavailable to to work with.
+- we can also use the passwd utility to lock the password, and therefore the account will be unavailable to work with.
   #+begin_src sh :results output :exports both
     sudo passwd -l yasser
   #+end_src
@@ -173,7 +173,7 @@ lets take a demo and see
 
   #+RESULTS:
   : yasser:!!$6$nhCWBYHQc2oQq/2j$iA0sQvRI2PBEDkGXH96AA/zFxre/sBqkYG0oOdPQhJMPsgMswl.PrINwpGm87A2BdeT0.f0Q2EjqTmfTT0eR51:18830:0:99999:7:::
-- here we can see that when we use the =passwd= to lock an account, what it does is that it adds two exclamation (*!!*) marks infront of the password in the ~/etc/shadow~ file.
+- here we can see that when we use the =passwd= to lock an account, what it does is that it adds two exclamation (*!!*) marks in front of the password in the ~/etc/shadow~ file.
 - and of course, to unlock the account using =passwd= use the ~-u~ option.
   #+begin_src sh :results output
     sudo passwd -u yasser
@@ -226,7 +226,7 @@ lets take a demo and see
   : -rw-rw-r--. 1 demo demo 0 Jul 22 19:08 file3
   : -rw-rw-r--. 1 demo demo 0 Jul 22 19:08 file4
   : -rw-rw-r--. 1 demo demo 0 Jul 22 19:08 file5
-- after that we will delete the user =demo= so that these files will be, let say *orphants*, or files without user/group ownership
+- after that we will delete the user =demo= so that these files will be, let say *orphans*, or files without user/group ownership
   #+begin_src sh :results output :exports both
     sudo userdel demo
     ls -l demofiles
@@ -242,7 +242,7 @@ lets take a demo and see
 - there are multiple steps to fix this problem.
   1. we have to use the ~-r~ option with ~userdel~ command, as we can see this option helps us to remove files in the user's home directory, the home directory itself and the user mail spool.
   2. search for other files owned by this user, uid or search for any files that doesn't have user/group owner.
-     you can mouve them to another location, delete them, tar them or change their ownership to another user and group
+     you can move them to another location, delete them, tar them or change their ownership to another user and group
      #+begin_src sh :results output :exports both
        # change their user/group ownership into admin:admin
        sudo find / -nouser -nogroup 2> /dev/null -exec chown -v admin:admin {} \;
@@ -299,11 +299,11 @@ Options:
     sudo groupmod -g 6000 ateam
   #+end_src
 ** ~groupdel~ deletes a group
-- the ~groupdel~ command will rmeove a group.
+- the ~groupdel~ command will remove a group.
   #+begin_src sh :results output
     sudo groupdel javaapp 2>&1
   #+end_src
-- A group may not be removed if it is the primary grup0u of any existing user.
+- A group may not be removed if it is the primary group of any existing user.
   As with ~userdel~, check all file systems to ensure that no files remain owned by the group.
 ** ~usermod~ alters group membership
 - first let's check the options that we have with this command
@@ -317,7 +317,7 @@ Options:
   Usage: usermod [options] LOGIN
 
   Options:
-    -b, --badnames                allow bad names
+    -b, --bedlam's                allow bad names
     -c, --comment COMMENT         new value of the GECOS field
     -d, --home HOME_DIR           new home directory for the user account
     -e, --expiredate EXPIRE_DATE  set account expiration date to EXPIRE_DATE
@@ -350,7 +350,7 @@ Options:
 #+HTML: </details>
 - it seems that the ~-g~ option let us the primary group of a particular user.
   #+begin_src sh :results none
-    # sudo usermod -g <newgroup> <username>
+    # sudo usermod -g <newsgroup> <username>
     sudo usermod -g student student
   #+end_src
 - and we can add supplementary groups with the ~-aG~ options, where ~-G~ helps us adding the supplementary groups
@@ -364,7 +364,7 @@ Options:
 
 #+HTML: </details>
 #+HTML: <div class="back"><a href="#table-of-contents">⌘ Back to top</a></div>
-* Managing User Passowrds
+* Managing User Passwords
 - in the past, encrypted passwords were stored in the ~/etc/passwd~ file.
   this was thought to be secure until =dictionary attacks= on encrypted passwords became common.
 - after that, the encrypted passwords were moved to the more secure ~/etc/shadow~ file.
@@ -379,7 +379,7 @@ Options:
 
   2. *jD1.lA.ZiAmjKfxs*: the /salt/ used to encrypt the hash. this is originally chosen at random.
 
-     the salt and the unencrypted password are combined and encrypted to create the encrypted password hash.
+     the salt and the encrypted password are combined and encrypted to create the encrypted password hash.
 
      means: if two users used the same password, different *hashes* will be generated.
 
